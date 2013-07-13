@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ID=$(cat ~/.tor-browser.pid)
+
+docker kill $ID
+docker rm $ID
