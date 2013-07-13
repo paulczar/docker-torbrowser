@@ -43,6 +43,10 @@ docker kill $ID
 docker rm $ID
 ```
 
+# screenshot #
+
+![ScreenShot](https://raw.github.com/paulczar/docker-torbrowser/master/tor-browser.png)
+
 # ToDo
 
 * Encrypt the folder that the tor browser is installed to
