@@ -2,7 +2,7 @@
 
 The purpose of this project is to provide an ephemeral image for anonymous web browsing.
 
-the docker image ( paulczar/torbrowser ) contains [https://www.torproject.org/projects/torbrowser.html.en](Tor Browser Bundle)  which is a bundled version of firefox that connects through and uses the Tor network for anonymous web browsing.    It is accessed via some SSH forwarding magic.
+the docker image ( paulczar/torbrowser ) contains the [Tor Browser Bundle](https://www.torproject.org/projects/torbrowser.html.en)  which is a bundled version of firefox that connects through and uses the Tor network for anonymous web browsing.    It is accessed via some SSH forwarding magic.
 
 # Build from Dockerfile #
 
