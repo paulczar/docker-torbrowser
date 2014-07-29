@@ -16,7 +16,7 @@ chsh -s /bin/bash docker
 
 
 cd /home/docker
-tar xzf /home/docker/tor.tar.gz 
+tar xJf /home/docker/tor.tar.xz 
 
 #Set all the files and subdirectories from /home/docker with docker permissions. 
 chown -R docker:docker /home/docker*
