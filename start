@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ID=$(docker run -d 30202081dcf5)
+ID=$(docker run -d paulczar/torbrowser)
 PORT=$(docker port $ID 22)
 
 echo $ID > ~/.tor-browser.pid
