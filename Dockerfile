@@ -18,8 +18,7 @@
 # Based on :- https://github.com/rogaha/docker-desktop
 
 
-FROM ubuntu:12.10
-MAINTAINER Paul Czarkowski "paul@paulcz.net"
+FROM ubuntu:latest
 
 RUN apt-get update
 
@@ -27,7 +26,7 @@ RUN apt-get update
 ENV DEBIAN_FRONTEND noninteractive
 
 # Upstart and DBus have issues inside docker. We work around in order to install firefox.
-RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
+#RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
 
 # Installing the environment required: xserver, xdm, flux box and ssh
 RUN apt-get install -y xpra ssh pwgen firefox
@@ -38,7 +37,7 @@ RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
 # Copy the files into the container
 ADD . /home/docker
 
-ADD https://www.torproject.org/dist/torbrowser/linux/tor-browser-gnu-linux-x86_64-2.4.18-rc-2-dev-en-US.tar.gz /home/docker/tor.tar.gz
+ADD https://www.torproject.org/dist/torbrowser/3.6.3/tor-browser-linux64-3.6.3_en-US.tar.xz /home/docker/tor.tar.xz
 
 EXPOSE 22
 # Start xdm and ssh services.
