@@ -7,9 +7,7 @@ the docker image ( paulczar/torbrowser ) contains the [Tor Browser Bundle](https
 # Build from Dockerfile #
 
 ```
-git clone https://github.com/paulczar/docker-torbrowser.git
-cd docker-torbrowser
-docker build .
+docker build github.com/paulczar/docker-torbrowser
 ```
 
 # Launching the tor-browser application #
