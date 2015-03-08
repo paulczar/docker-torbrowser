@@ -1,12 +1,1 @@
-#!/bin/bash
-
-ID=$(docker run -d paulczar/torbrowser)
-PORT=$(docker port $ID 22)
-
-echo $ID > ~/.tor-browser.pid
-
-echo "Run the following to get your SSH Password: "
-echo "docker logs $ID 2> /dev/null | head -1"
-echo "Then run the following to launch tor-browser: "
-echo ssh -oStrictHostKeyChecking=no -oCheckHostIP=no -YC -c blowfish docker@localhost -p $PORT ./tor-browser
-
+docker run -i -t --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro torbrowser
