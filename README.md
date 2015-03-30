@@ -12,13 +12,12 @@ cd docker-torbrowser
 
 ## Browse web ##
 
-*Use the start script provided in this repository to start the browser*
-
+Use the start script provided in this repository to start the browser:
 `./startiw`
 
 To simply start an ephemeral anonymous browser:
-
 `./starttb`
 
 Pressing CTRL+C or closing the browser window will stop the container.
 
+Downloaded files can be found in /tmp/Downloads if needed.
