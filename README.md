@@ -5,7 +5,7 @@ This project is providing an ephemeral image optionally anonymous for web browsi
 ## Build image from Dockerfile ##
 
 ```
-git clone https://github.com/dbravender/docker-torbrowser.git
+git clone https://github.com/stevexyz/docker-torbrowser.git
 cd docker-torbrowser
 ./build-image
 ```
