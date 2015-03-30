@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir /tmp/Downloads
+sudo docker run -i -t --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /tmp/Downloads:/home/shannon/Downloads debian-tor-browser /home/shannon/tor-browser_en-US/start-tor-browser
