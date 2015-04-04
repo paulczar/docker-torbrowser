@@ -30,7 +30,8 @@ RUN useradd -m -d /home/$USER $USER
 #ADD . /home/$USER
 
 # Add TOR browser
-ADD https://www.torproject.org/dist/torbrowser/4.5a4/tor-browser-linux64-4.5a4_en-US.tar.xz /home/$USER/tor.tar.xz
+#ADD https://www.torproject.org/dist/torbrowser/4.5a4/tor-browser-linux64-4.5a4_en-US.tar.xz /home/$USER/tor.tar.xz
+ADD https://www.torproject.org/dist/torbrowser/4.0.6/tor-browser-linux64-4.0.6_en-US.tar.xz /home/$USER/tor.tar.xz
 RUN apt-get install -y xz-utils
 RUN cd /home/$USER && tar xvf /home/$USER/tor.tar.xz && rm /home/$USER/tor.tar.xz
 #ADD tor.tar.xz /home/$USER/
