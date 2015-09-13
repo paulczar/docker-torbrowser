@@ -1,0 +1,1 @@
+sudo docker build --rm=true --tag="debian-tor-browser" .

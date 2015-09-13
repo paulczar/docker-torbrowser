@@ -1,19 +1,23 @@
 # Tor Browser - Docker Project #
 
-The purpose of this project is to provide an ephemeral image for anonymous web
-browsing.
+This project is providing an ephemeral image optionally anonymous for web browsing.
 
-# Build from Dockerfile #
+## Build image from Dockerfile ##
 
 ```
-git clone https://github.com/dbravender/docker-torbrowser.git
-docker build -t torbrowser .
+git clone https://github.com/stevexyz/docker-torbrowser.git
+cd docker-torbrowser
+./build-image
 ```
 
-## Start Script ##
+## Browse web ##
 
-*Use the start script provided in this repository to start a browser*
+Use the start script provided in this repository to start the browser:
+`./startiw`
 
-`./start`
+To simply start an ephemeral anonymous browser:
+`./starttb`
 
 Pressing CTRL+C or closing the browser window will stop the container.
+
+Downloaded files can be found in /tmp/Downloads if needed.

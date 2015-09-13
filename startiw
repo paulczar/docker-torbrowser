@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir /tmp/Downloads >> startiw.log 2>&1
+sudo docker run -i -t --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /tmp/Downloads:/home/shannon/Downloads debian-tor-browser iceweasel >> startiw.log 2>&1
+rm -f startiw.log # comment it for debug purpose
