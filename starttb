@@ -1,4 +1,0 @@
-#!/bin/bash
-mkdir /tmp/Downloads >> starttb.log 2>&1
-sudo docker run -i -t --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /tmp/Downloads:/home/shannon/Downloads debian-tor-browser /home/shannon/tor-browser_en-US/start-tor-browser >> starttb.log 2>&1
-rm -f starttb.log # comment it for debug purpose
