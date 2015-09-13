@@ -1,50 +1,33 @@
-#FROM debian:latest
 FROM debian:jessie
+# MAINTAINER Jessica Frazelle <jess@docker.com>
 
-# Set the env variable DEBIAN_FRONTEND to noninteractive
-ENV DEBIAN_FRONTEND noninteractive
+COPY pin_torbrowser-launcher.pref /etc/apt/preferences.d/pin_torbrowser-launcher.pref
+RUN DEBIAN_FRONTEND=noninteractive ;\
+    sed --in-place 's/jessie main/jessie main contrib/g' /etc/apt/sources.list && \
+    echo 'deb http://httpredir.debian.org/debian jessie-backports main contrib' >> /etc/apt/sources.list.d/backports.list && \
+    apt-get update && \
+    apt-get install --assume-yes --no-install-recommends \
+        flashplugin-nonfree \
+        iceweasel \
+        torbrowser-launcher \
+        xz-utils
 
 # to change user name: here, at USER instruction at the end of this file and in the "starttb" file (home dir)
 ENV USER shannon
+ENV TOR_BROWSER_VERSION 5.0.2
 
-# from jess/iceweasel MAINTAINER Jessica Frazelle <jess@docker.com>
-RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list && \
-    apt-get update && apt-get install -y \
-    flashplugin-nonfree \
-    iceweasel \
-    --no-install-recommends
+RUN useradd --create-home --skel /bin/bash $USER
 
-RUN apt-get -y upgrade
-RUN apt-get -y dist-upgrade
+ADD https://www.torproject.org/dist/torbrowser/${TOR_BROWSER_VERSION}/tor-browser-linux64-${TOR_BROWSER_VERSION}_en-US.tar.xz /tmp/tor-browser.tar.xz
+ADD https://www.torproject.org/dist/torbrowser/${TOR_BROWSER_VERSION}/tor-browser-linux64-${TOR_BROWSER_VERSION}_en-US.tar.xz.asc /tmp/tor-browser.tar.xz.asc
+RUN cd /home/$USER && \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290" && \
+    gpg --verify /tmp/tor-browser.tar.xz.asc && \
+    tar xvf /tmp/tor-browser.tar.xz && \
+    rm /tmp/tor-browser.tar.xz
 
-#RUN echo "deb http://mozilla.debian.net/ wheezy-backports iceweasel-release" >> /etc/apt/sources.list
-#RUN apt-get update --fix-missing
-#RUN apt-get install -y --force-yes -t wheezy-backports iceweasel
+RUN chown --recursive $USER:$USER /home/$USER
 
-# Set locale (fix the locale warnings)
-#RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
-
-RUN useradd -m -d /home/$USER $USER
-
-# Bug in docker messes up permissions of directories unless you do this first
-#ADD . /home/$USER
-
-# Add TOR browser
-#ADD https://www.torproject.org/dist/torbrowser/4.5a4/tor-browser-linux64-4.5a4_en-US.tar.xz /home/$USER/tor.tar.xz
-ADD https://www.torproject.org/dist/torbrowser/4.0.6/tor-browser-linux64-4.0.6_en-US.tar.xz /home/$USER/tor.tar.xz
-RUN apt-get install -y xz-utils
-RUN cd /home/$USER && tar xvf /home/$USER/tor.tar.xz && rm /home/$USER/tor.tar.xz
-#ADD tor.tar.xz /home/$USER/
-
-RUN mkdir /home/$USER/Downloads
-RUN chown $USER:$USER /home/$USER
-RUN chown $USER:$USER /home/$USER/*
-
-RUN apt-get autoremove
-
-USER shannon
-
+USER $USER
 ENV HOME /home/$USER
-
-#CMD [/home/$USER/tor-browser_en-US/start-tor-browser]
-
+RUN mkdir /home/$USER/Downloads
