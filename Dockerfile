@@ -4,7 +4,7 @@ FROM debian:jessie
 # Set the env variable DEBIAN_FRONTEND to noninteractive
 # to change user name: here, at USER instruction at the end of this file and in the "starttb" file (home dir)
 
-ENV DEBIAN_FRONTEND=noninteractive VERSION=5.0.2 HOME=/home/anon
+ENV DEBIAN_FRONTEND=noninteractive VERSION=5.0.3 HOME=/home/anon
 
 
 # from jess/iceweasel MAINTAINER Jessica Frazelle <jess@docker.com>
