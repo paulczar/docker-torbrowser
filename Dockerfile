@@ -8,32 +8,32 @@ ENV DEBIAN_FRONTEND=noninteractive VERSION=5.0.3 HOME=/home/anon
 
 
 # from jess/iceweasel MAINTAINER Jessica Frazelle <jess@docker.com>
-RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list && \
+RUN apt-get update && \
+    apt-get -y dist-upgrade && \
+    sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list && \
     apt-get update && apt-get install -y \
     flashplugin-nonfree \
     iceweasel \
-    --no-install-recommends
-
-RUN apt-get -y upgrade
-RUN apt-get -y dist-upgrade
-
-#RUN echo "deb http://mozilla.debian.net/ wheezy-backports iceweasel-release" >> /etc/apt/sources.list
-#RUN apt-get update --fix-missing
-#RUN apt-get install -y --force-yes -t wheezy-backports iceweasel
-
-# Set locale (fix the locale warnings)
-#RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
+    xz-utils \
+    curl \
+    --no-install-recommends && \
+    localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
 
 RUN useradd -m -d /home/anon anon
 
-# Bug in docker messes up permissions of directories unless you do this first
-#ADD . /home/anon
+WORKDIR /home/anon
 
 # Add TOR browser
-ADD https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz /home/anon/tor.tar.xz
-RUN apt-get install -y xz-utils
-RUN cd /home/anon && tar xvf /home/anon/tor.tar.xz && rm /home/anon/tor.tar.xz
-#ADD tor.tar.xz /home/anon/
+RUN \
+    curl -sSL -o /home/anon/tor.tar.xz \
+      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz && \
+    curl -sSL -o /home/anon/tor.tar.xz.asc \
+      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz.asc && \ 
+    gpg --keyserver ha.pool.sks-keyservers.net \
+      --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290" && \
+    gpg --verify /home/anon/tor.tar.xz.asc && \
+    tar xvf /home/anon/tor.tar.xz && \
+    rm -f /home/anon/tor.tar.xz*
 
 RUN mkdir /home/anon/Downloads && \
     chown anon:anon /home/$USER && \
