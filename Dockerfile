@@ -1,13 +1,11 @@
-#FROM debian:latest
 FROM debian:jessie
 
 # Set the env variable DEBIAN_FRONTEND to noninteractive
 # to change user name: here, at USER instruction at the end of this file and in the "starttb" file (home dir)
 
-ENV DEBIAN_FRONTEND=noninteractive VERSION=5.0.3 HOME=/home/anon
+ENV DEBIAN_FRONTEND=noninteractive VERSION=6.0.8 HOME=/home/anon
 
 
-# from jess/iceweasel MAINTAINER Jessica Frazelle <jess@docker.com>
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
     sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list && \
@@ -28,7 +26,7 @@ RUN \
     curl -sSL -o /home/anon/tor.tar.xz \
       https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz && \
     curl -sSL -o /home/anon/tor.tar.xz.asc \
-      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz.asc && \ 
+      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz.asc && \
     gpg --keyserver ha.pool.sks-keyservers.net \
       --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290" && \
     gpg --verify /home/anon/tor.tar.xz.asc && \
