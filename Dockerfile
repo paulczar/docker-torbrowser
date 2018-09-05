@@ -3,7 +3,7 @@ FROM debian:jessie
 # Set the env variable DEBIAN_FRONTEND to noninteractive
 # to change user name: here, at USER instruction at the end of this file and in the "starttb" file (home dir)
 
-ENV DEBIAN_FRONTEND=noninteractive VERSION=6.0.8 HOME=/home/anon
+ENV DEBIAN_FRONTEND=noninteractive VERSION=7.5.6 HOME=/home/anon
 
 
 RUN apt-get update && \
@@ -34,8 +34,7 @@ RUN \
     rm -f /home/anon/tor.tar.xz*
 
 RUN mkdir /home/anon/Downloads && \
-    chown anon:anon /home/$USER && \
-    chown anon:anon /home/$USER/* && \
+    chown -R anon:anon /home/anon && \
     apt-get autoremove
 
 USER anon
